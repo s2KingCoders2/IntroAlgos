@@ -83,6 +83,29 @@ int DPSolve(int a[], int low, int high) {
     }
     return max_so_far;
 }
+
+void MaximumMaxArrayLinear(int n, int a[]) {
+    int low, high, max_sum = -OO;
+    int ending_here_sum = -OO, ending_here_high, ending_here_low;
+    for (int j = 1; j <= n; j ++ ) {
+        ending_here_high = j;
+        if (ending_here_sum > 0)
+            ending_here_sum += a[j];
+        else {
+            ending_here_low = j;
+            ending_here_sum = a[j];
+        }
+        if (ending_here_sum > max_sum) {
+            max_sum = ending_here_sum;
+            low  = ending_here_low;
+            high = ending_here_high;
+        }
+    }
+    cout << max_sum << endl;
+    for (int i = low; i <= high; i ++)
+        cout << a[i] << " ";
+    cout << endl;
+}
 int main() {
     freopen("MaximumSubArray.inp", "r", stdin);
     cin >> n;
@@ -91,7 +114,9 @@ int main() {
     cout << "Brute: \n\n" << BruteForces(n, a) << endl ;
     cout << "DC: \n" << endl;
     DCSolve(a, 1, n);
-    cout << "DP: \n" << endl;
-    cout << DPSolve(a, 1, n) << endl;
+    cout << endl;
+   // cout << "DP: \n" << endl;
+  //  cout << DPSolve(a, 1, n) << endl << endl;
+    MaximumMaxArrayLinear(n, a);
     return 0;
 }
